@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/projeto-teste-react-countries/static/css/main.ab7102f5.chunk.css",
+    "main.js": "/projeto-teste-react-countries/static/js/main.13517d06.chunk.js",
+    "main.js.map": "/projeto-teste-react-countries/static/js/main.13517d06.chunk.js.map",
+    "runtime-main.js": "/projeto-teste-react-countries/static/js/runtime-main.363c2f4d.js",
+    "runtime-main.js.map": "/projeto-teste-react-countries/static/js/runtime-main.363c2f4d.js.map",
+    "static/css/2.3f2625b1.chunk.css": "/projeto-teste-react-countries/static/css/2.3f2625b1.chunk.css",
+    "static/js/2.149cdd55.chunk.js": "/projeto-teste-react-countries/static/js/2.149cdd55.chunk.js",
+    "static/js/2.149cdd55.chunk.js.map": "/projeto-teste-react-countries/static/js/2.149cdd55.chunk.js.map",
+    "static/js/3.feaf8344.chunk.js": "/projeto-teste-react-countries/static/js/3.feaf8344.chunk.js",
+    "static/js/3.feaf8344.chunk.js.map": "/projeto-teste-react-countries/static/js/3.feaf8344.chunk.js.map",
+    "index.html": "/projeto-teste-react-countries/index.html",
+    "static/css/2.3f2625b1.chunk.css.map": "/projeto-teste-react-countries/static/css/2.3f2625b1.chunk.css.map",
+    "static/css/main.ab7102f5.chunk.css.map": "/projeto-teste-react-countries/static/css/main.ab7102f5.chunk.css.map",
+    "static/js/2.149cdd55.chunk.js.LICENSE.txt": "/projeto-teste-react-countries/static/js/2.149cdd55.chunk.js.LICENSE.txt",
+    "static/media/font-awesome.min.css": "/projeto-teste-react-countries/static/media/fontawesome-webfont.f691f37e.woff"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.363c2f4d.js",
+    "static/css/2.3f2625b1.chunk.css",
+    "static/js/2.149cdd55.chunk.js",
+    "static/css/main.ab7102f5.chunk.css",
+    "static/js/main.13517d06.chunk.js"
+  ]
+}

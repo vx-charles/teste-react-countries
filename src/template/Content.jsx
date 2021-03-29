@@ -9,17 +9,17 @@ import Homepage from './Homepage'
 const Content = props => (
     <main className="Content">
         <Switch>
-            <Route exact path="/">
+            <Route exact path={process.env.PUBLIC_URL}>
                 <PageHeader title="Homepage - Lista de Países do Mundo" />
                 <Homepage />
             </Route>
 
-            <Route path="/dashboard">
+            <Route path={process.env.PUBLIC_URL + "/dashboard"}>
                 <PageHeader title="Dashboard" subtitle="Lista de países" />
                 <SearchForm />
             </Route>
 
-            <Route path="/details">
+            <Route path={process.env.PUBLIC_URL + "/details"}>
                 <PageHeader title="Detalhes do País" />
                 <Details />
             </Route>

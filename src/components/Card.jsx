@@ -16,7 +16,7 @@ const Card = props => {
     
     return (
         <div className="Card" onClick={() => addLocalStorage(props.name)}>
-            <Link to="/details">
+            <Link to={process.env.PUBLIC_URL + "/details"}>
                 <img src={props.src} alt={props.name} />
                 <div className="name-country">
                     <span><strong>Nome:</strong> {props.name}</span>

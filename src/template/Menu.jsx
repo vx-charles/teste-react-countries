@@ -11,10 +11,10 @@ const Menu = props => (
                     <span>Menu <i className="fa fa-angle-down"></i></span>
                 </li>
                 <li>
-                    <Link to="/">Home</Link>
+                    <Link to={process.env.PUBLIC_URL}>Home</Link>
                 </li>
                 <li>
-                    <Link to="/dashboard">Lista de países</Link>
+                    <Link to={process.env.PUBLIC_URL + "/dashboard"}>Lista de países</Link>
                 </li>
             </ul>
         </nav>

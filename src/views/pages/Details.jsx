@@ -86,7 +86,7 @@ class Details extends Component {
         if (localStorage.getItem('name_' + this.props.countryName) !== null) {
             return this.listMap()
         } else {
-            return window.location.href = "/dashboard"
+            return window.location.href = process.env.PUBLIC_URL + "/dashboard"
         }
     }
 }

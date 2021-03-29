@@ -1,0 +1,55 @@
+#details {
+    display: block;
+}
+
+.detail-country {
+    margin-bottom: 30px;
+    display: flex;
+}
+
+.detail-country .description p {
+    margin: 0;
+    flex: 1;
+}
+
+.detail-country .description {
+    background: #666;
+    padding: 30px;
+    color: #fff;
+}
+
+.detail-country img {
+    width: 400px;
+    margin-right: 20px;
+}
+
+.alterar-form .form-control {
+    margin-bottom: 10px;
+}
+
+.alterar-form .form-group {
+    margin-bottom: 0px;
+    width: 400px;
+}
+
+.alterar-form .form-group .form-control:nth-child(4) {
+    margin-bottom: 0px;
+}
+
+.alterar-form .btn-alterar {
+    width: 100%;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.alterar-form .info {
+    font-size: 18px;
+    margin-bottom: 20px;
+    background-color: #666;
+    color: #fff;
+    padding: 10px;
+}
+
+.alterar-form .info i {
+    font-size: 22px;
+}

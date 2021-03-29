@@ -1,0 +1,42 @@
+image: node:14.9.0
+
+stages:
+  - build
+  - deploy
+  - test
+
+cache:
+  path:
+    - node_modules/
+
+test:
+  stage: test
+  script:
+    - echo "Testing App"
+    - npm install
+    - npm run test
+
+build:
+  stage: build
+  script:
+    - rm -rf build
+    - CI=false npm install
+    - CI=false npm run build
+    - echo "Build successfully!"
+    - rm -rf public
+    - cp build/index.html build/404.html
+    - mv build public
+
+  artifacts:
+    paths:
+      - public
+    # only:
+    #   - master
+
+deploy:
+  stage: deploy
+  script:
+    - ls # para ver algo
+  artifacts:
+    paths:
+      - public

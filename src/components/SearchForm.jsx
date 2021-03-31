@@ -3,10 +3,9 @@ import '../css/SearchForm.css'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { searchAll } from '../store/actions/countryActions'
-import SearchInput, { createFilter } from 'react-search-input'
 import Card from './Card'
 import '../css/Card.css'
-
+import replaceCharacters from 'replace-special-characters'
 class SearchForm extends Component {
     constructor(props) {
         super(props)
@@ -15,6 +14,7 @@ class SearchForm extends Component {
             searchTerm: ''
         }
         this.searchUpdated = this.searchUpdated.bind(this)
+        this.keyHandler = this.keyHandler.bind(this)
     }
 
     componentDidMount() {
@@ -22,30 +22,32 @@ class SearchForm extends Component {
         console.log('Inicializando...')
     }
 
-    searchUpdated(term) {
-        this.setState({ searchTerm: term })
+    keyHandler(event) {
+        if (event.key === 'Escape') {
+            this.setState({ searchTerm: "" })
+        }
+    }
+
+    searchUpdated(event) {
+        this.setState({ searchTerm: event })        
     }
 
     render() {
-        
-        const KEYS_TO_FILTERS = ['name']
-        const filteredEmails = this.props.query.filter(createFilter(this.state.searchTerm, KEYS_TO_FILTERS))
+        const filteredCountries = this.props.query.filter(country => {
+            return country.name.toLowerCase().includes(this.state.searchTerm.toLowerCase())
+        })
 
         return (
             <>
                 <div className="col-xs-12">
                     <div role='form' className='search-form form-group'>
-                        <SearchInput
-                            data-testid="form-field"
-                            className="form-control input-form"
-                            onChange={this.searchUpdated}
-                            placeholder="Buscar País" 
-                        />
+                        <input data-testid="form_search" className="form-control input-form" type="text" placeholder="Buscar País" value={this.state.searchTerm} onKeyUp={this.keyHandler} onChange={e => this.searchUpdated(e.target.value)} />
                     </div>
+
                 </div>
 
                 <div className="Cards">
-                    {filteredEmails.map(dado => {
+                    {filteredCountries.map(dado => {
                         return (
                             <React.Fragment key={dado._id}>
                                 <Card
@@ -55,18 +57,19 @@ class SearchForm extends Component {
                                     capital={dado.capital}
                                     area={dado.area}
                                     populacao={dado.flag.country.population}
-                                    dominio={dado.flag.country.topLevelDomains || []}>
+                                    dominio={dado.flag.country.topLevelDomains || []}
+                                    url={process.env.PUBLIC_URL + "/details/" + replaceCharacters(dado.name.replaceAll(" ", "-").replaceAll(/[&\\#,+()$~%.'":*?<>{}]/g, ""))}>
                                 </Card>
                             </React.Fragment>
                         )
                     })}
-                </div>            
+                </div>
             </>
         )
-        
+
     }
 }
 
-const mapStateToProps = state => ({ query: state.country.query  })
+const mapStateToProps = state => ({ query: state.country.query })
 const mapDispatchToProps = dispatch => bindActionCreators({ searchAll }, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps)(SearchForm)

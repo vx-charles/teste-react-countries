@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import '../../css/Details.css'
-import { searchAll } from '../../store/actions/countryActions'
+import { search } from '../../store/actions/countryActions'
 import { bindActionCreators } from 'redux'
-
 class Details extends Component {
     constructor(props) {
         super(props)
@@ -13,16 +12,16 @@ class Details extends Component {
         this.handleInputChange = this.handleInputChange.bind(this)
 
         this.state = {
+            name: "",
             capital: "",
-            populacao: "",
             area: "",
+            populacao: "",
             dominio: [{name: ""}],
-            imagem: ""
         }
     }
 
     componentDidMount() {
-        this.props.searchAll()
+        this.props.search(sessionStorage.getItem('nome_pais'))
         console.log('Inicializando detalhes...')
     }    
 
@@ -31,7 +30,7 @@ class Details extends Component {
         const value = target.type === 'text' ? target.value : target.checked
         const name = target.name
 
-        this.setState({
+        this.setState({           
             [name]: name === 'dominio' ? [{name:value}] : value,
         })
     }
@@ -40,27 +39,28 @@ class Details extends Component {
         if((this.state.capital && this.state.populacao && this.state.area && this.state.dominio) === "") {
             alert('Preencha todos os campos')
         } else {
-            localStorage.setItem('dados_country_name_alterado_' + nameCountry, JSON.stringify(this.state))
+            sessionStorage.setItem('dados_country_name_alterado_' + nameCountry, JSON.stringify(this.state))
             alert("alterações feitas!")
         }
     }
 
     listMap() {
-
-        let list = localStorage.getItem('dados_country_name_alterado_' + this.props.countryName) === null ? localStorage.getItem('dados_country_name_' + this.props.countryName) : localStorage.getItem('dados_country_name_alterado_' + this.props.countryName)
+        const nomePais = sessionStorage.getItem('nome_pais')
+        let list = sessionStorage.getItem('dados_country_name_alterado_' + nomePais) === null ? sessionStorage.getItem('dados_country_name_' + nomePais) : sessionStorage.getItem('dados_country_name_alterado_' + nomePais)
         list = JSON.parse(list)
-        // console.log(list)
-
-        // return list.map((dado, index) => {
+        // console.log(sessionStorage.getItem('dados_country_name_alterado_' + nomePais))
+        // console.log(sessionStorage.getItem('dados_country_name_' + nomePais))
+        // return list.map(dado => {
+            // console.log(dado)
             return (
                 <div id="details">
-                    <div className="detail-country">
-                        <img src={JSON.parse(localStorage.getItem('dados_country_name_' + this.props.countryName)).src} alt={this.props.countryName} />
+                    <div className="detail-country">                        
+                        <img src={JSON.parse(sessionStorage.getItem('dados_country_name_' + sessionStorage.getItem('nome_pais'))).src} alt={list.name} />
                         <div className="description">
-                            <h2>{this.props.countryName}</h2>
+                            <h2>{list.name}</h2>
                             <p><strong>Capital:</strong> {this.state.capital === "" ? list.capital : this.state.capital}</p>
                             <p><strong>População:</strong> {this.state.populacao === "" ? list.populacao : this.state.populacao}</p>
-                            <p><strong>Área:</strong> {this.state.area === "" ? list.area : this.state.area} mi2</p>                            
+                            <p><strong>Área:</strong> {this.state.area === "" ? list.area : this.state.area} mi2</p>
                             <p><strong>Domínio de primeiro nível com código de país:</strong> {this.state.dominio[0].name === "" ? list.dominio[0].name : this.state.dominio[0].name }</p>
                         </div>
                     </div>
@@ -69,12 +69,12 @@ class Details extends Component {
                         <div className="form-group">
                             <div className="info"><i className="fa fa-info-circle" aria-hidden="true"></i> Alterar informações do país (campos obrigatórios*)</div>
                             <div className="inputs">
-                                <input data-testid="form-field" type="text" className="form-control" placeholder="Capital*" name="capital" value={this.state.capital} onChange={this.handleInputChange} />
-                                <input data-testid="form-field" type="text" className="form-control" placeholder="População*" name="populacao" value={this.state.populacao} onChange={this.handleInputChange} />
-                                <input data-testid="form-field" type="text" className="form-control" placeholder="Área*" name="area" value={this.state.area} onChange={this.handleInputChange} />
-                                <input data-testid="form-field" type="text" className="form-control" placeholder="Domínio de primeiro nível*" name="dominio" value={this.state.dominio[0].name} onChange={this.handleInputChange} />
+                                <input type="text" className="form-control" placeholder="Capital*" name="capital" value={this.state.capital} onChange={this.handleInputChange} />
+                                <input type="text" className="form-control" placeholder="População*" name="populacao" value={this.state.populacao} onChange={this.handleInputChange} />
+                                <input type="text" className="form-control" placeholder="Área*" name="area" value={this.state.area} onChange={this.handleInputChange} />
+                                <input type="text" className="form-control" placeholder="Domínio de primeiro nível*" name="dominio" value={this.state.dominio[0].name} onChange={this.handleInputChange} />
                             </div>
-                            <button data-testid="form-field" className="btn btn-primary btn-alterar" onClick={() => this.alterarDados(this.props.countryName)}>Alterar dados</button>
+                            <button className="btn btn-primary btn-alterar" onClick={() => this.alterarDados(nomePais)}>Alterar dados</button>
                         </div>
                     </div>
                 </div>
@@ -83,9 +83,10 @@ class Details extends Component {
     }
 
     render() {
-        if (localStorage.getItem('name_' + this.props.countryName) !== null) {
+        if (sessionStorage.getItem('nome_pais') !== null) { // Evita a tela de erro quando a sessionStorage está vazio.
             return this.listMap()
-        } else {
+        } 
+        else {
             return window.location.href = process.env.PUBLIC_URL + "/dashboard"
         }
     }
@@ -94,8 +95,8 @@ class Details extends Component {
 const mapStateToProps = state => ( // pega o estado atual armazenado no objeto lá no countryReducer.js
     {
         countryName: state.country.countryName,
-        // query: state.country.query
+        querySelected: state.country.querySelected
     }
 )
-const mapDispatchToProps = dispatch => bindActionCreators({ searchAll }, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({ search }, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps)(Details)

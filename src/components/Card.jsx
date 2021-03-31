@@ -10,16 +10,17 @@ const Card = props => {
     const addLocalStorage = dado => {
         props.getCountry(dado)
         const nome = "name_" + dado
-        localStorage.setItem(nome, dado)
-        localStorage.setItem('dados_country_'+nome, JSON.stringify(props))
+        sessionStorage.setItem(nome, dado)
+        sessionStorage.setItem('dados_country_'+nome, JSON.stringify(props))
+        sessionStorage.setItem('nome_pais', dado)
     }
     
     return (
-        <div className="Card" onClick={() => addLocalStorage(props.name)}>
-            <Link to={process.env.PUBLIC_URL + "/details"}>
+        <div className="Card" onClick={() => addLocalStorage(props.name)} data-testid="card_de_paises">
+            <Link to={props.url}>
                 <img src={props.src} alt={props.name} />
                 <div className="name-country">
-                    <span><strong>Nome:</strong> {props.name}</span>
+                    <span><strong>Nome do País:</strong> {props.name}</span>
                     <span><strong>Capital:</strong> {props.capital}</span>
                 </div>
             </Link>

@@ -6,6 +6,8 @@ export const useFetch = (url, method = 'post') => {
         loading: true
     })
 
+    const text = `( name: "${sessionStorage.getItem('nome_pais')}" )`
+
     useEffect(function () {
         fetch(url, {
             method: method,
@@ -13,13 +15,22 @@ export const useFetch = (url, method = 'post') => {
             body: JSON.stringify({
                 query: `
                     query {
-                        Country {
+                        Country${text} {
+                            _id
                             name
                             capital
+                            area
+                            convertedArea {
+                                unit
+                            }
                             flag {
                                 country {
+                                    population
                                     flag {
                                         svgFile
+                                    }
+                                    topLevelDomains {
+                                        name
                                     }
                                 }
                             }

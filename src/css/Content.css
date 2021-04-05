@@ -1,0 +1,19 @@
+.Content {
+    display: flex;
+    flex: 1;
+    background-color: #ececec;
+    padding: 30px;    
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.Content > * {
+    display: flex;
+}
+
+.Content .page-header {    
+    background: #666;
+    padding: 10px;
+    color: #fff;
+    margin-bottom: 20px;
+}

@@ -1,5 +1,5 @@
 # projeto-teste-react-countries
-Projeto teste feito em React JS que exibe uma lista de países vindo do servidor GraphQL e tem funcionalidades de listar países, pesquisar países e alterar e salvar dados do país via client-side.
+Test project made in React JS that displays a list of countries, data coming from the GraphQL server and has features to list countries, search for countries, change and save country data via client-side and displays a map of the selected country and shows the 5 nearby countries and their distances in Km.
 
 ## Available Scripts
 In the project directory, you can run:
